@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계산기</title>
+    <style>
+    
+     
+     .calculator {
+         margin: 20px auto;
+         max-width: 400px;
+         padding: 20px;
+         border: 2px solid #333;
+         border-radius: 10px;
+         background-color: #f5f5f5;
+     }
+     
+     .calculator h2 {
+         text-align: center;
+         color: #333;
+         margin-bottom: 20px;
+     }
+     
+     .calculator-container {
+         display: flex;
+         flex-direction: column;
+         gap: 15px;
+     }
+     
+     .calc-input, .calc-select {
+         padding: 10px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         font-size: 16px;
+     }
+     
+     .calc-button {
+         padding: 12px;
+         background-color: #007bff;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         font-size: 16px;
+         cursor: pointer;
+         transition: background-color 0.3s;
+     }
+     
+     .calc-button:hover {
+         background-color: #0056b3;
+     }
+     
+     .result {
+         padding: 10px;
+         background-color: #e9ecef;
+         border-radius: 5px;
+         font-size: 18px;
+         font-weight: bold;
+         text-align: center;
+     }
+    </style>
+</head>
+<body>
+
+    <section class="calculator">
+        <h2>계산기</h2>
+        <div class="calculator-container">
+            <input type="number" id="num1" placeholder="첫 번째 숫자" class="calc-input">
+            <select id="operator" class="calc-select">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">×</option>
+                <option value="/">÷</option>
+            </select>
+            <input type="number" id="num2" placeholder="두 번째 숫자" class="calc-input">
+            <button class="calc-button">계산</button>
+            <div id="result" class="result">결과: </div>
+        </div>
+        
+    </section>
+    
+</body>
+</html>
