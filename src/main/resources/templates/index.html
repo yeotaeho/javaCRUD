@@ -3,97 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 50vh;
-            margin: 0;
-        }
-        
-        .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .login-title {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: bold;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-        }
-        
-        .login-button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .login-button:hover {
-            background-color: #0056b3;
-        }
-        
-        .login-button:active {
-            background-color: #004085;
-        }
-    </style>
+    <title>온라인 쇼핑몰</title>
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2 class="login-title">로그인</h2>
-        <form action="/hello" method="get">
-            <div class="form-group">
-                <label for="userid">아이디</label>
-                <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요">
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🛍️ MyShop</div>
+            <nav class="nav">
+                <a href="#home">홈</a>
+                <a href="#products">상품</a>
+                <a href="#about">소개</a>
+                <a href="#contact">문의</a>
+            </nav>
+            <div class="auth-buttons" id="authButtons">
+                <a href="/auth/login.html" class="auth-btn">로그인</a>
+                <a href="/auth/user.html" class="auth-btn">회원가입</a>
+                <a href="/contents/calculator/plus.html" class="auth-btn">더하기</a>
+                <a href="/contents/calculator/minus.html" class="auth-btn">빼기</a>
+                <a href="/contents/calculator/gob.html" class="auth-btn">곱하기</a>
+                <a href="/contents/calculator/nanum.html" class="auth-btn">나누기</a>
             </div>
-            
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요">
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="user-avatar" id="userAvatar">👤</div>
+                <span class="user-name" id="userName">사용자</span>
+                <button class="logout-btn">로그아웃</button>
             </div>
+            <div class="cart-icon">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>환영합니다!</h1>
+            <p>최고의 상품을 합리적인 가격에 만나보세요</p>
+            <a href="#products" class="btn">쇼핑 시작하기</a>
+        </div>
+    </section>
+
+    <section class="section" id="products">
+        <div class="container">
+            <h2 class="section-title">인기 상품</h2>
             
-            <button type="submit" class="login-button">로그인</button>
-        </form>
+            <div class="filters">
+                <button class="filter-btn active">전체</button>
+                <button class="filter-btn">전자제품</button>
+                <button class="filter-btn">의류</button>
+                <button class="filter-btn">홈데코</button>
+                <button class="filter-btn">스포츠</button>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <div class="product-info">
+                        <h3 class="product-name">스마트폰</h3>
+                        <p class="product-description">최신 기술의 스마트폰</p>
+                        <div class="product-price">800,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <div class="product-info">
+                        <h3 class="product-name">무선 이어폰</h3>
+                        <p class="product-description">고음질 무선 이어폰</p>
+                        <div class="product-price">150,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🔊</div>
+                    <div class="product-info">
+                        <h3 class="product-name">블루투스 스피커</h3>
+                        <p class="product-description">강력한 베이스의 블루투스 스피커</p>
+                        <div class="product-price">120,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👕</div>
+                    <div class="product-info">
+                        <h3 class="product-name">면 티셔츠</h3>
+                        <p class="product-description">편안한 면 소재 티셔츠</p>
+                        <div class="product-price">25,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👖</div>
+                    <div class="product-info">
+                        <h3 class="product-name">청바지</h3>
+                        <p class="product-description">클래식한 데님 청바지</p>
+                        <div class="product-price">45,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">👟</div>
+                    <div class="product-info">
+                        <h3 class="product-name">운동화</h3>
+                        <p class="product-description">편안한 쿠셔닝의 운동화</p>
+                        <div class="product-price">89,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💡</div>
+                    <div class="product-info">
+                        <h3 class="product-name">거실등</h3>
+                        <p class="product-description">LED 조명 거실등</p>
+                        <div class="product-price">65,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🪴</div>
+                    <div class="product-info">
+                        <h3 class="product-name">화분</h3>
+                        <p class="product-description">공기정화 식물 화분</p>
+                        <div class="product-price">35,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🧘</div>
+                    <div class="product-info">
+                        <h3 class="product-name">요가 매트</h3>
+                        <p class="product-description">미끄럼 방지 요가 매트</p>
+                        <div class="product-price">42,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏋️</div>
+                    <div class="product-info">
+                        <h3 class="product-name">덤벨 세트</h3>
+                        <p class="product-description">조절 가능한 덤벨 세트</p>
+                        <div class="product-price">180,000원</div>
+                        <div class="product-actions">
+                            <button class="btn btn-small">장바구니</button>
+                            <button class="btn btn-small btn-outline">바로구매</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features">
+        <div class="container">
+            <h2 class="section-title">우리의 장점</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h3>빠른 배송</h3>
+                    <p>전국 어디든 24시간 내 배송</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💳</div>
+                    <h3>안전한 결제</h3>
+                    <p>SSL 암호화로 안전한 결제 보장</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>쉬운 반품</h3>
+                    <p>30일 무료 반품 및 교환</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📞</div>
+                    <h3>고객 지원</h3>
+                    <p>24시간 고객 서비스 지원</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 로그인 모달 -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>로그인</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">이메일</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">비밀번호</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">로그인</button>
+                </div>
+            </form>
+            <div class="auth-switch">
+                계정이 없으신가요? <a>회원가입</a>
+            </div>
+        </div>
     </div>
+
+    <!-- 회원가입 모달 -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>회원가입</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">이름</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">이메일</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">비밀번호</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">비밀번호 확인</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">회원가입</button>
+                </div>
+            </form>
+            <div class="auth-switch">
+                이미 계정이 있으신가요? <a>로그인</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 장바구니 모달 -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>장바구니</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div id="cartItems">
+                <p style="text-align: center; color: #999; padding: 2rem;">장바구니가 비어있습니다.</p>
+            </div>
+            <div class="cart-total">
+                <div class="total-price">총 가격: <span id="totalPrice">0원</span></div>
+                <button class="btn">결제하기</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MyShop. All rights reserved.</p>
+            <p>고객센터: 1588-0000 | 이메일: support@myshop.com</p>
+        </div>
+    </footer>
+
 </body>
 </html>
