@@ -1,4 +1,4 @@
-package kr.yeotaeho.api.calculator.controller;
+package kr.yeotaeho.api;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +16,14 @@ public class HomeController {
         return "auth/login";
     }
 
-    @GetMapping("/auth/user.html")
-    public String user() {
-        return "auth/user";
-    }
-
     @GetMapping("/contents/calculator/plus.html")
     public String plus() {
         return "calculator/plus";
+    }
+
+    @GetMapping("/auth/user.html")
+    public String user() {
+        return "auth/user";
     }
 
     @GetMapping("/contents/calculator/minus.html")
