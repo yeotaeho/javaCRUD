@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.yeotaeho.api.auth.domain.LoginDTO;
 import kr.yeotaeho.api.auth.service.LoginService;
 
-
-
 @Controller
 public class LoginController {
 
@@ -18,42 +16,38 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-
     @GetMapping("/contents/calculator/plus")
-    public String plus(@RequestParam int number1, 
-                       @RequestParam int number2) {
-        
-            System.out.println("컨트롤러로 들어옴");
-            System.out.println("컨트롤러로 전달된 1번 숫자 : " + number1);
-            System.out.println("컨트롤러로 전달된 2번 숫자 : " + number2);
-            System.out.println("합 = " + (number1 + number2));
-            LoginDTO loginDTO = new LoginDTO();
-            loginDTO.number1(number1);
-            loginDTO.number2(number2);
-            loginService.plus(loginDTO);
-      
-        
+    public String plus(@RequestParam int number1,
+            @RequestParam int number2) {
+
+        System.out.println("컨트롤러로 들어옴");
+        System.out.println("컨트롤러로 전달된 1번 숫자 : " + number1);
+        System.out.println("컨트롤러로 전달된 2번 숫자 : " + number2);
+        System.out.println("합 = " + (number1 + number2));
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.number1(number1);
+        loginDTO.number2(number2);
+        loginService.plus(loginDTO);
+
         return "calculator/plus";
     }
 
-
     @GetMapping("/contents/calculator/minus")
-    public String minus(@RequestParam int minusnumber1, 
-                       @RequestParam int minusnumber2) {
-        
-            System.out.println("컨트롤러로 들어옴");
-            System.out.println("컨트롤러로 전달된 1번 숫자 : " + minusnumber1);
-            System.out.println("컨트롤러로 전달된 2번 숫자 : " + minusnumber2);
-            System.out.println("빼기 = " + (minusnumber1 - minusnumber2));
-            LoginDTO loginDTO = new LoginDTO();
-            loginDTO.minusnumber1(minusnumber1);
-            loginDTO.minusnumber2(minusnumber2);
-            loginService.minus(loginDTO);
-      
-        
+    public String minus(@RequestParam int minusnumber1,
+            @RequestParam int minusnumber2) {
+
+        System.out.println("컨트롤러로 들어옴");
+        System.out.println("컨트롤러로 전달된 1번 숫자 : " + minusnumber1);
+        System.out.println("컨트롤러로 전달된 2번 숫자 : " + minusnumber2);
+        System.out.println("빼기 = " + (minusnumber1 - minusnumber2));
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.minusnumber1(minusnumber1);
+        loginDTO.minusnumber2(minusnumber2);
+        loginService.minus(loginDTO);
+
         return "calculator/minus";
     }
-    
+
     @GetMapping("/contents/calculator/nanum")
     public String nanum(@RequestParam int nanumnumber1, @RequestParam int nanumnumber2) {
         System.out.println("컨트롤러로 들어옴");
@@ -81,7 +75,7 @@ public class LoginController {
 
         return "calculator/gob";
     }
-    
+
     @GetMapping("/auth/login")
     public String login(@RequestParam String email, @RequestParam String password) {
         System.out.println("컨트롤러로 들어옴");
@@ -93,8 +87,16 @@ public class LoginController {
         loginDTO.setEmail(email);
         loginDTO.setPassword(password);
         loginService.login(loginDTO);
-        
-    return "auth/login";
-}
+
+        return "auth/login";
+    }
+
+    @GetMapping("/auth/human")
+    public String human(@RequestParam String name, @RequestParam String jumin) {
+        System.out.println("컨트롤러로 들어옴");
+        System.out.println("컨트롤러로 전달된 이름 : " + name);
+        System.out.println("컨트롤러로 전달된 주민등록번호 : " + jumin);
+        return "auth/human";
+    }
 
 }

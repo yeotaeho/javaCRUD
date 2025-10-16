@@ -1,4 +1,4 @@
-package kr.yeotaeho.api;
+package kr.yeotaeho.api.common.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +41,9 @@ public class HomeController {
         return "calculator/nanum";
     }
     
-
+    @GetMapping("/auth/human.html")
+    public String human() {
+        return "auth/human";
+    }
 
 }
