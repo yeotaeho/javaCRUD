@@ -40,7 +40,7 @@ public class HomeController {
     public String nanum() {
         return "calculator/nanum";
     }
-    
+
     @GetMapping("/auth/human.html")
     public String human() {
         return "auth/human";

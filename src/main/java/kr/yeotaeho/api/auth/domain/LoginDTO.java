@@ -13,6 +13,7 @@ public class LoginDTO {
     private int gobnumber1;
     private int gobnumber2;
 
+
     public String getEmail() {
         return email;
     }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
 
+    
     public boolean login(LoginDTO loginDTO) {
         System.out.println("로그인 서비스로 들어옴");
         System.out.println("서비스로 전달된 이메일 : " + loginDTO.getEmail());

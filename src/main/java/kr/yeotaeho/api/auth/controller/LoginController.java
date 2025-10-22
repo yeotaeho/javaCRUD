@@ -3,9 +3,11 @@ package kr.yeotaeho.api.auth.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
 
 import kr.yeotaeho.api.auth.domain.LoginDTO;
 import kr.yeotaeho.api.auth.service.LoginService;
+import kr.yeotaeho.api.common.domain.Messenger;
 
 @Controller
 public class LoginController {
@@ -76,8 +78,8 @@ public class LoginController {
         return "calculator/gob";
     }
 
-    @GetMapping("/auth/login")
-    public String login(@RequestParam String email, @RequestParam String password) {
+    @GetMapping("/auth/login/process")
+    public String login(@RequestParam String email, @RequestParam String password, Model model) {
         System.out.println("컨트롤러로 들어옴");
         System.out.println("컨트롤러로 전달된 이메일 : " + email);
         System.out.println("컨트롤러로 전달된 비밀번호 : " + password);
@@ -86,7 +88,12 @@ public class LoginController {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setEmail(email);
         loginDTO.setPassword(password);
-        loginService.login(loginDTO);
+
+        Messenger messenger = loginService.loginDTO(loginDTO);
+        model.addAttribute("messenger", messenger);
+
+        System.out.println("서비스에서 컨트롤러로 리턴한 코드" + messenger.getCode());
+        System.out.println("서비스에서 컨트롤러로 리턴한 메세지" + messenger.getMessage());
 
         return "auth/login";
     }
