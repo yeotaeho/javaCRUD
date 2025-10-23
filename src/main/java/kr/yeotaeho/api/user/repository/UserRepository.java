@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.yeotaeho.api.common.domain.Messenger;
 import kr.yeotaeho.api.user.domain.UserDTO;
+import kr.yeotaeho.api.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -12,13 +13,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserRepository {
 
-    public Messenger saveUsers(List<UserDTO> users) {
+    public Messenger saveAll(List<UserDTO> userDTO) {
         System.out.println("========================================");
-        System.out.println("Repository: " + users.size() + "명의 사용자 데이터 저장 완료");
+        System.out.println("Repository: " + userDTO.size() + "명의 사용자 데이터 저장 완료");
         System.out.println("========================================\n");
 
-        for (int i = 0; i < users.size(); i++) {
-            UserDTO user = users.get(i);
+        for (int i = 0; i < userDTO.size(); i++) {
+            UserDTO user = userDTO.get(i);
 
             System.out.println("--- 승객 " + (i + 1) + " ---");
             System.out.println("PassengerId: " + user.getUserId());
@@ -42,7 +43,35 @@ public class UserRepository {
 
         Messenger messenger = new Messenger();
         messenger.setCode(200);
-        messenger.setMessage(users.size() + "명의 사용자가 저장되었습니다.");
+        messenger.setMessage(userDTO.size() + "명의 사용자가 저장되었습니다.");
         return messenger;
+    }
+
+
+    public Messenger save(UserDTO userDTO) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+
+    public Messenger findAll(UserDTO userDTO) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    }
+
+
+    public Messenger findById(UserDTO userDTO) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
+    public Messenger update(UserDTO userDTO) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    public Messenger delete(UserDTO userDTO) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

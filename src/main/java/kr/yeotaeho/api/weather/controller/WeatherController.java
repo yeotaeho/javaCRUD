@@ -11,23 +11,31 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.ui.Model;
 import kr.yeotaeho.api.weather.domain.WeatherDTO;
-import kr.yeotaeho.api.weather.service.WeatherService;
+import kr.yeotaeho.api.weather.service.WeatherServiceImpl;
 import kr.yeotaeho.api.common.domain.Messenger;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/weathers")
 public class WeatherController {
-    private final WeatherService weatherService;
 
-    @GetMapping("/weather/load")
+    private final WeatherServiceImpl weatherService;
+
+    @PostMapping("/all")
     @ResponseBody
-    public Messenger loadWeatherData(Model model) {
+    public Messenger saveAll(List<WeatherDTO> weatherDTO, Model model) {
 
         String csvFilePath = "src/main/resources/static/scv/TRAIN_weather.csv-Grid view.csv";
 
@@ -57,7 +65,7 @@ public class WeatherController {
             }
 
             // WeatherService로 데이터 전달
-            Messenger messenger = weatherService.saveWeather(weatherList);
+            Messenger messenger = weatherService.saveAll(weatherList);
             model.addAttribute("weatherList", weatherList);
             model.addAttribute("messenger", messenger);
             return messenger;
@@ -68,4 +76,31 @@ public class WeatherController {
             return messenger;
         }
     }
+
+    @PostMapping("")
+    public Messenger save(@RequestBody WeatherDTO weatherDTO) {
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    @DeleteMapping("/{id}")
+    public Messenger delete(@PathVariable String id) {
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    @GetMapping("id/{id}")
+    public Messenger findById(@PathVariable String id) {
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    @PutMapping("/{id}")
+    public Messenger update(@RequestBody WeatherDTO weatherDTO) {
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    @GetMapping("/all")
+    @ResponseBody
+    public Messenger findAll() {
+        return weatherService.findAll(null);
+    }
+
 }

@@ -1,24 +1,20 @@
 package kr.yeotaeho.api.user.service;
 
-import org.springframework.stereotype.Service;
-import lombok.RequiredArgsConstructor;
-
-import kr.yeotaeho.api.user.repository.UserRepository;
 import kr.yeotaeho.api.user.domain.UserDTO;
 import java.util.List;
 import kr.yeotaeho.api.common.domain.Messenger;
 
-@Service
-@RequiredArgsConstructor
-public class UserService {
+public interface UserService {
+    public Messenger save(UserDTO userDTO);
 
-    private final UserRepository userRepository;
+    public Messenger saveAll(List<UserDTO> userDTO);
 
-    public Messenger saveUser(List<UserDTO> users) {
+    public Messenger findAll(UserDTO userDTO);
 
-        Messenger messenger = userRepository.saveUsers(users);
+    public Messenger findById(UserDTO userDTO);
 
-        return messenger;
-    }
+    public Messenger update(UserDTO userDTO);
+
+    public Messenger delete(UserDTO userDTO);
 
 }

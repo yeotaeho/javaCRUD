@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날씨 정보</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background: #f8f9fa;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .weather-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .weather-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .weather-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .weather-city {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .weather-icon {
+            font-size: 2.5rem;
+        }
+
+        .weather-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .temperature {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .weather-condition {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .weather-footer {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+
+        .no-data {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .weather-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span>🌤️</span>
+                날씨 정보
+            </h1>
+            <p>실시간 날씨 정보를 확인하세요</p>
+        </div>
+
+        <!-- 날씨 데이터 불러오기 폼 -->
+        <div class="controls">
+            <form action="/weathers/all" method="post" style="margin: 0;">
+                <button type="submit" class="btn">📥 날씨 데이터 불러오기</button>
+            </form>
+            <form th:action="@{/weathers/list}" method="get" style="margin: 0;">
+                <button type="submit" class="btn">🔄 새로고침</button>
+            </form>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-value" th:text="${totalCount}">0</div>
+                <div class="stat-label">총 데이터 수</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌡️</div>
+                <div class="stat-value" th:text="${avgTemp}">-</div>
+                <div class="stat-label">평균 온도</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💧</div>
+                <div class="stat-value" th:text="${avgHumidity}">-</div>
+                <div class="stat-label">평균 습도</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🌧️</div>
+                <div class="stat-value" th:text="${totalPrecip}">-</div>
+                <div class="stat-label">총 강수량</div>
+            </div>
+        </div>
+
+        <div class="weather-grid" th:if="${weatherList != null and !weatherList.isEmpty()}">
+            <div class="weather-card" th:each="weather : ${weatherList}">
+                <div class="weather-header">
+                    <div class="weather-city" th:text="${weather.city != null ? weather.city : '알 수 없음'}">도시</div>
+                    <div class="weather-icon">🌤️</div>
+                </div>
+                <div class="weather-main">
+                    <div>
+                        <div class="temperature"
+                            th:text="${weather.temperature != null ? weather.temperature + '°' : 'N/A'}">N/A</div>
+                        <div class="weather-condition" th:text="${weather.weather != null ? weather.weather : '정보 없음'}">
+                            정보 없음</div>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <div class="detail-label">💧 습도</div>
+                        <div class="detail-value" th:text="${weather.humidity != null ? weather.humidity : 'N/A'}">N/A
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">💨 풍속</div>
+                        <div class="detail-value" th:text="${weather.windSpeed != null ? weather.windSpeed : 'N/A'}">N/A
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🌧️ 강수량</div>
+                        <div class="detail-value"
+                            th:text="${weather.precipitation != null ? weather.precipitation : 'N/A'}">N/A</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">⏰ 시간</div>
+                        <div class="detail-value" th:text="${weather.time != null ? weather.time : 'N/A'}">N/A</div>
+                    </div>
+                </div>
+                <div class="weather-footer">
+                    <span th:text="${weather.date != null ? '📅 ' + weather.date : '📅 날짜 정보 없음'}">📅 날짜 정보 없음</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-data" th:if="${weatherList == null or weatherList.isEmpty()}">
+            <p>📭 표시할 날씨 데이터가 없습니다.</p>
+        </div>
+    </div>
+</body>
+
+</html>

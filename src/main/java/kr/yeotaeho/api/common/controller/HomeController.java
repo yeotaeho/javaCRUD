@@ -26,6 +26,11 @@ public class HomeController {
         return "auth/user";
     }
 
+    @GetMapping("/weather/weatherlist.html")
+    public String weatherlist() {
+        return "weather/weatherlist";
+    }
+
     @GetMapping("/contents/calculator/minus.html")
     public String minus() {
         return "calculator/minus";
