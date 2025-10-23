@@ -59,6 +59,7 @@ public class WeatherController {
             // WeatherService로 데이터 전달
             Messenger messenger = weatherService.saveWeather(weatherList);
             model.addAttribute("weatherList", weatherList);
+            model.addAttribute("messenger", messenger);
             return messenger;
         } catch (Exception e) {
             Messenger messenger = new Messenger();
