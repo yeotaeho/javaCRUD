@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.ui.Model;
 import kr.yeotaeho.api.weather.domain.WeatherDTO;
 import kr.yeotaeho.api.weather.service.WeatherService;
 import kr.yeotaeho.api.common.domain.Messenger;
@@ -26,7 +27,7 @@ public class WeatherController {
 
     @GetMapping("/weather/load")
     @ResponseBody
-    public Messenger loadWeatherData() {
+    public Messenger loadWeatherData(Model model) {
 
         String csvFilePath = "src/main/resources/static/scv/TRAIN_weather.csv-Grid view.csv";
 
@@ -57,8 +58,8 @@ public class WeatherController {
 
             // WeatherService로 데이터 전달
             Messenger messenger = weatherService.saveWeather(weatherList);
+            model.addAttribute("weatherList", weatherList);
             return messenger;
-
         } catch (Exception e) {
             Messenger messenger = new Messenger();
             messenger.setCode(500);
