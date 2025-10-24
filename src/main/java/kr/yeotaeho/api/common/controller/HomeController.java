@@ -16,6 +16,16 @@ public class HomeController {
         return "auth/login";
     }
 
+    @GetMapping("/weather/list")
+    public String weatherList() {
+        return "weather/weatherlist";
+    }
+
+    @GetMapping("/users/list")
+    public String usersList() {
+        return "user/list";
+    }
+
     @GetMapping("/contents/calculator/plus.html")
     public String plus() {
         return "calculator/plus";
@@ -26,14 +36,14 @@ public class HomeController {
         return "auth/user";
     }
 
-    @GetMapping("/weather/weatherlist.html")
-    public String weatherlist() {
-        return "weather/weatherlist";
-    }
-
     @GetMapping("/contents/calculator/minus.html")
     public String minus() {
         return "calculator/minus";
+    }
+
+    @GetMapping("/products")
+    public String products() {
+        return "products/products";
     }
 
     @GetMapping("/contents/calculator/gob.html")

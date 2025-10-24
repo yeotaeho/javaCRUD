@@ -1,34 +1,5 @@
 package kr.yeotaeho.api.calculator.controller;
 
-import kr.yeotaeho.api.calculator.domain.CalculatorDTO;
-import kr.yeotaeho.api.calculator.service.CalculatorService;
-
-public class CalculatorController implements CalculatorService {
-
-    @Override
-    public int add(CalculatorDTO calculatorDTO) {
-        // TODO Auto-generated method stub
-
-        
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
-
-    @Override
-    public int minus(CalculatorDTO calculatorDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minus'");
-    }
-
-    @Override
-    public int multiply(CalculatorDTO calculatorDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'multiply'");
-    }
-
-    @Override
-    public int divide(CalculatorDTO calculatorDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'divide'");
-    }
+public class calculatorController {
     
 }

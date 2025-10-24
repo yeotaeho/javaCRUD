@@ -16,5 +16,4 @@ public class WeatherDTO {
     private String precipitation;
     private String date;
     private String time;
-
 }

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.ui.Model;
 import kr.yeotaeho.api.weather.domain.WeatherDTO;
@@ -28,18 +27,15 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/weathers")
+@RequestMapping("/weather")
 public class WeatherController {
-
     private final WeatherServiceImpl weatherService;
 
-    @PostMapping("/all")
-    @ResponseBody
-    public Messenger saveAll(List<WeatherDTO> weatherDTO, Model model) {
-
+    @PostMapping("")
+    public String saveAll(Model model) {
         String csvFilePath = "src/main/resources/static/scv/TRAIN_weather.csv-Grid view.csv";
 
-        List<WeatherDTO> weatherList = new ArrayList<>();
+        List<WeatherDTO> weatherDTO = new ArrayList<>();
 
         try (FileInputStream fis = new FileInputStream(csvFilePath);
                 Reader reader = new InputStreamReader(fis, StandardCharsets.UTF_8);
@@ -61,46 +57,42 @@ public class WeatherController {
                 weather.setDate(record.get(6)); // 일교차
                 weather.setTime(record.get(7)); // 강수량(mm)
 
-                weatherList.add(weather);
+                weatherDTO.add(weather);
             }
 
             // WeatherService로 데이터 전달
-            Messenger messenger = weatherService.saveAll(weatherList);
-            model.addAttribute("weatherList", weatherList);
-            model.addAttribute("messenger", messenger);
-            return messenger;
+            weatherService.saveAll(weatherDTO, model);
+            return "weather/weatherlist";
         } catch (Exception e) {
             Messenger messenger = new Messenger();
             messenger.setCode(500);
             messenger.setMessage("CSV 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
-            return messenger;
+            model.addAttribute("messenger", messenger);
+            return "weather/weatherlist";
         }
-    }
-
-    @PostMapping("")
-    public Messenger save(@RequestBody WeatherDTO weatherDTO) {
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
-
-    @DeleteMapping("/{id}")
-    public Messenger delete(@PathVariable String id) {
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
-
-    @GetMapping("id/{id}")
-    public Messenger findById(@PathVariable String id) {
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
     @PutMapping("/{id}")
     public Messenger update(@RequestBody WeatherDTO weatherDTO) {
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @DeleteMapping("/{id}")
+    public Messenger delete(@PathVariable String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    @GetMapping("id/{id}")
+    public Messenger findById(@PathVariable String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
     @GetMapping("/all")
-    @ResponseBody
     public Messenger findAll() {
-        return weatherService.findAll(null);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
-
 }

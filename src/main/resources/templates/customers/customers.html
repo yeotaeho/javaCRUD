@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>날씨 데이터 로드</title>
+    <title>고객 데이터 로드</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,7 +33,7 @@
 
         button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
             border: none;
             border-radius: 5px;
@@ -42,25 +42,27 @@
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #218838;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 13px;
         }
 
         th,
         td {
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 8px;
             text-align: left;
         }
 
         th {
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
+            font-weight: bold;
         }
 
         tr:nth-child(even) {
@@ -74,10 +76,10 @@
 </head>
 
 <body>
-    <h1>날씨 데이터 관리</h1>
+    <h1>고객 데이터 관리</h1>
 
-    <form method="post" action="/weather">
-        <button type="submit">날씨 데이터 로드</button>
+    <form method="post" action="/customers">
+        <button type="submit">고객 데이터 로드 (상위 5개)</button>
     </form>
 
     <!-- 메시지 출력 -->
@@ -86,34 +88,40 @@
         <strong>메시지:</strong> <span th:text="${messenger.message}"></span>
     </div>
 
-    <!-- 날씨 데이터 테이블 -->
-    <div th:if="${weatherDTO != null and !weatherDTO.isEmpty()}">
-        <h2>날씨 데이터 목록</h2>
+    <!-- 고객 데이터 테이블 -->
+    <div th:if="${customers != null and !customers.isEmpty()}">
+        <h2>고객 데이터 목록</h2>
         <table>
             <thead>
                 <tr>
-                    <th>번호</th>
+                    <th>Index</th>
+                    <th>Customer ID</th>
+                    <th>이름</th>
+                    <th>성</th>
+                    <th>회사</th>
                     <th>도시</th>
-                    <th>날짜</th>
-                    <th>날씨</th>
-                    <th>평균기온 (℃)</th>
-                    <th>습도</th>
-                    <th>풍속</th>
-                    <th>강수량 (mm)</th>
-                    <th>시간</th>
+                    <th>국가</th>
+                    <th>전화번호 1</th>
+                    <th>전화번호 2</th>
+                    <th>이메일</th>
+                    <th>구독일</th>
+                    <th>웹사이트</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="weather, iterStat : ${weatherDTO}">
-                    <td th:text="${iterStat.count}"></td>
-                    <td th:text="${weather.city}"></td>
-                    <td th:text="${weather.date}"></td>
-                    <td th:text="${weather.weather}"></td>
-                    <td th:text="${weather.temperature}"></td>
-                    <td th:text="${weather.humidity}"></td>
-                    <td th:text="${weather.windSpeed}"></td>
-                    <td th:text="${weather.precipitation}"></td>
-                    <td th:text="${weather.time}"></td>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.index}"></td>
+                    <td th:text="${customer.customerId}"></td>
+                    <td th:text="${customer.firstName}"></td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.company}"></td>
+                    <td th:text="${customer.city}"></td>
+                    <td th:text="${customer.country}"></td>
+                    <td th:text="${customer.phone1}"></td>
+                    <td th:text="${customer.phone2}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.subscriptionDate}"></td>
+                    <td><a th:href="${customer.website}" th:text="${customer.website}" target="_blank"></a></td>
                 </tr>
             </tbody>
         </table>

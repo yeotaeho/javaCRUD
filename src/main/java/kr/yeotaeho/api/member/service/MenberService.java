@@ -1,15 +1,18 @@
 package kr.yeotaeho.api.member.service;
 
+import org.springframework.ui.Model;
+
+import kr.yeotaeho.api.common.domain.Messenger;
 import kr.yeotaeho.api.member.domain.MemberDTO;
 
 public interface MenberService {
-    public void seve(MemberDTO memberDTO);
+    public Messenger save(MemberDTO memberDTO ,Model model);
 
-    public void delete(MemberDTO memberDTO);
+    public Messenger delete(String id ,Model model);
 
-    public void findById(MemberDTO memberDTO);
+    public Messenger findById(MemberDTO memberDTO ,Model model);
 
-    public void update(MemberDTO memberDTO);
+    public Messenger update(MemberDTO memberDTO ,Model model);
 
-    public void findAll(MemberDTO memberDTO);
+    public Messenger findAll(Model model);
 }

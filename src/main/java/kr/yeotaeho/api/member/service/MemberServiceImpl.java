@@ -1,8 +1,10 @@
 package kr.yeotaeho.api.member.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.yeotaeho.api.common.domain.Messenger;
 import kr.yeotaeho.api.member.domain.MemberDTO;
 import kr.yeotaeho.api.member.reository.MenberReository;
 import lombok.RequiredArgsConstructor;
@@ -14,33 +16,28 @@ public class MemberServiceImpl implements MenberService {
     private final MenberReository menberReository;
     
     @Override
-    public void seve(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'seve'");
+    public Messenger save(MemberDTO memberDTO ,Model model) {
+        return menberReository.save(memberDTO);
     }
 
     @Override
-    public void delete(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public Messenger delete(String id ,Model model) {
+        return menberReository.delete(id);
     }
 
     @Override
-    public void findById(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    public Messenger findById(MemberDTO memberDTO ,Model model) {
+        return menberReository.findById(memberDTO);
     }
 
     @Override
-    public void update(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Messenger update(MemberDTO memberDTO ,Model model) {
+        return menberReository.update(memberDTO);
     }
 
     @Override
-    public void findAll(MemberDTO memberDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    public Messenger findAll(Model model) {
+        return menberReository.findAll(model);
     }
 
 
